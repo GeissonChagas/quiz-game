@@ -1,24 +1,43 @@
 <template>
 
   <div>
-    <h1>PERGUNTAS</h1>
+    <h1 v-html="this.question"></h1>
   </div>
 
   <input type="radio" name="options" value="True">
   <label>Falso</label><br>
 
   <input type="radio" name="options" value="False">
-  <label>Verdadeiro</label><br>
+  <label>True</label><br>
 
-  <button class="send" type="button">Enviar</button>
+  <button class="send" type="button">False</button>
 
 </template>
 
 <script>
 
 
+
 export default {
   name: 'App',
+  data () {
+    return{
+      question: undefined,
+      incorrectAnswers: undefined,
+      correctAnswer: undefined
+    }
+  },
+
+  created () {
+    this.axios
+    .get("https://opentdb.com/api.php?amount=1&category=18&type=boolean")
+    .then((response) => {
+      this.question = response.data.results[0].question;
+      this.incorrectAnswers = response.data.results[0].incorrect_answers;
+      this.correctAnswer = response.data.results[0].correct_answer;
+      
+    })
+  }
 }
 </script>
 
