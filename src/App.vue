@@ -10,12 +10,13 @@
       <input 
         type="radio"
         name="options"
-        value="answer">
+        :value="answer"
+        v-model="this.chosenAnswer">
 
       <label v-html="answer"></label><br>
     </template>
 
-    <button class="send" type="button">Send</button>
+    <button @click="submitAnswer()" class="send" type="button">Send</button>
 
     </template>
   </div>
@@ -31,7 +32,8 @@ export default {
     return{
       question: undefined,
       incorrectAnswers: undefined,
-      correctAnswer: undefined
+      correctAnswer: undefined,
+      chosenAnswer: undefined
     }
   },
   computed:{
@@ -39,6 +41,19 @@ export default {
     var answers = JSON.parse(JSON.stringify(this.incorrectAnswers));
     answers.splice( Math.round(Math.random()* answers.length), 0, this.correctAnswer);
     return answers;
+    }
+  },
+  methods: {
+    submitAnswer(){
+      if(!this.chosenAnswer){
+        alert('Pick one of the options!');
+      } else {
+        if(this.chosenAnswer == this.correctAnswer){
+          alert('You got it right!')
+        } else {
+          alert ('You got it wrong!')
+        }
+        }
     }
   },
   created () {
