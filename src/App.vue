@@ -8,6 +8,7 @@
 
     <template v-for="(answer, index) in this.answers" :key="index">
       <input 
+        :disabled="this.answerSubimitted"
         type="radio"
         name="options"
         :value="answer"
@@ -33,7 +34,8 @@ export default {
       question: undefined,
       incorrectAnswers: undefined,
       correctAnswer: undefined,
-      chosenAnswer: undefined
+      chosenAnswer: undefined,
+      answerSubimitted: false
     }
   },
   computed:{
@@ -48,6 +50,7 @@ export default {
       if(!this.chosenAnswer){
         alert('Pick one of the options!');
       } else {
+        this.answerSubimitted = true
         if(this.chosenAnswer == this.correctAnswer){
           alert('You got it right!')
         } else {
