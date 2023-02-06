@@ -18,12 +18,13 @@
       <label v-html="answer"></label><br>
     </template>
 
-      <button v-if="!this.answerSubimitted" @click="this.submitAnswer()" class="send" type="button">Send</button>
+      <button v-if="!this.answerSubimitted" @click="this.submitAnswer(); " class="send" type="button">Send</button>
 
     <section class="result" v-if="this.answerSubimitted ">
       <h4 v-if="this.chosenAnswer == this.correctAnswer" class="incorrect-answer"> I'm sorry, you picked the wrong answer!</h4>
       <h4 v-else class="correct-answer"> You got it right!</h4>
       <button class="send" type="button" @click="nextQuestion()">Next question</button>  
+      <button class="send" type="button" @click="reset()">Reset</button>
     </section>
     
 
@@ -60,7 +61,17 @@ export default {
     }
   },
   methods: {
+    reset() {
+    localStorage.removeItem("winCount");
+    localStorage.removeItem("loseCount");
+    this.winCount = 0;
+    this.loseCount = 0;
+  },
     submitAnswer(){
+      //add no localStorage
+      localStorage.winCount = JSON.stringify(this.winCount);
+      localStorage.loseCount = JSON.stringify(this.loseCount);
+
       if(!this.chosenAnswer){
         alert('Pick one of the options!');
       } else {
@@ -88,6 +99,13 @@ export default {
   }
   },
   created () {
+    if (localStorage.winCount) {
+    this.winCount = JSON.parse(localStorage.winCount);
+    }
+    if (localStorage.loseCount) {
+      this.loseCount = JSON.parse(localStorage.loseCount);
+    }
+
     this.axios
     .get("https://opentdb.com/api.php?amount=1&category=18&type=boolean")
     .then((response) => {
@@ -123,6 +141,7 @@ export default {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin: 0 1rem;
   }
 
   button.send:hover {
