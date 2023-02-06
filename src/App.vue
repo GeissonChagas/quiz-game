@@ -1,7 +1,7 @@
 
 <template> 
   <div>
-    <ScoreBoard />
+    <ScoreBoard :winCount="this.winCount" :loseCount="this.loseCount" />
     <template v-if="this.question">
 
       <h1 v-html="this.question">
@@ -38,7 +38,7 @@ import ScoreBoard from './components/ScoreBoard.vue';
 export default {
 
   name: 'App',
-  compnents: {
+  components: {
     ScoreBoard
   },
   data () {
@@ -47,7 +47,9 @@ export default {
       incorrectAnswers: undefined,
       correctAnswer: undefined,
       chosenAnswer: undefined,
-      answerSubimitted: false
+      answerSubimitted: false,
+      winCount: 0,
+      loseCount: 0  
     }
   },
   computed:{
@@ -64,9 +66,9 @@ export default {
       } else {
         this.answerSubimitted = true
         if(this.chosenAnswer == this.correctAnswer){
-          console.log('You got it right!')
+          this.winCount++;
         } else {
-          console.log('You got it wrong!')
+          this.loseCount++;
         }
         }
     },
@@ -111,15 +113,26 @@ export default {
     margin: 12px 4px;
   }
 
-  button.send{
-    margin-top: 12px;
-    height: 40px;
-    min-width: 120px;
-    padding: 0 16px;
-    color: #fff;
-    background-color: #1867c0;
-    border: solid 1px #1867c0;
-    cursor: pointer;
+  button.send {
+  display: inline-block;
+  padding: 1em 2em;
+  background-color: #008000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  }
+
+  button.send:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
+
+  button.send:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 10px rgba(0,0,0,0.23), 0 3px 3px rgba(0,0,0,0.16);
   }
 
   .correct-answer{
