@@ -12,13 +12,19 @@
 
 <style lang="scss">
     section.score{
-        border-bottom: 1px solid #333;
+        color: #333;
         padding: 24px;
         font-size: 18px;
+        
     }
-        span{
-            padding: 8px;
-            font-weight: 700;
-            border: 1px solid #222;
-        }
+
+    span{
+        padding: 8px;
+        font-weight: 700;
+        border: 1px solid #ccc;
+        background-color: white;
+        transition: all 0.2s;
+        margin: 0 1rem;
+    }
+
 </style>

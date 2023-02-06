@@ -1,6 +1,7 @@
 
-<template> 
+<template>
   <div>
+    <BannerComponent  />
     <ScoreBoard :winCount="this.winCount" :loseCount="this.loseCount" />
     <template v-if="this.question">
 
@@ -29,18 +30,23 @@
     
 
     </template>
+    <FooterComponent />
   </div>
 
 </template>
 <script>
 
+import BannerComponent from './components/BannerComponent.vue'
 import ScoreBoard from './components/ScoreBoard.vue';
+import FooterComponent from './components/FooterComponent.vue'
 
 export default {
 
   name: 'App',
   components: {
-    ScoreBoard
+    ScoreBoard,
+    BannerComponent,
+    FooterComponent
   },
   data () {
     return{
@@ -61,9 +67,8 @@ export default {
     }
   },
   methods: {
-    reset() {
-    localStorage.removeItem("winCount");
-    localStorage.removeItem("loseCount");
+    reset () {
+    localStorage.clear();
     this.winCount = 0;
     this.loseCount = 0;
   },
